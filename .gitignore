@@ -1,11 +1,38 @@
 # Playwright test outputs
-test-results/
+/test-results/
+/playwright-report/
 .playwright/
 .videos/
 .screenshots/
+report/
+cache/
 
 # TypeScript compiled outputs
-*.js
 *.js.map
 dist/
 build/
+
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Build output
+dist/
+build/
+
+# Coverage reports
+coverage/
+
+# Cache directories
+.cache/
+.npm/
+.eslintcache
