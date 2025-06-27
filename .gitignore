@@ -36,3 +36,8 @@ coverage/
 .cache/
 .npm/
 .eslintcache
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/
