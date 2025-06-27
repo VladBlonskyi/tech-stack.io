@@ -1,5 +1,6 @@
 # Playwright test outputs
-test-results/
+/test-results/
+/playwright-report/
 .playwright/
 .videos/
 .screenshots/
@@ -7,7 +8,6 @@ report/
 cache/
 
 # TypeScript compiled outputs
-*.js
 *.js.map
 dist/
 build/
