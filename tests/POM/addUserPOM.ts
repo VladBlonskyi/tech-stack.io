@@ -7,6 +7,9 @@ export class AddUserPage {
   createButton: Locator;
   homeButton: Locator;
   userCreate: Locator;
+  nameError: Locator;
+  yearError: Locator;
+  addUserButton: Locator;
 
   constructor(public page: Page) {
     this.page = page;
@@ -15,7 +18,10 @@ export class AddUserPage {
     this.yearOfBirthField = page.locator('[data-testid="input-YearOfBirth"]');
     this.createButton = page.locator('[data-testid="button-Create"]');
     this.homeButton = page.locator('a:has-text("Home")');
+    this.addUserButton = page.locator('a:has-text("Home")');
     this.userCreate = page.locator('[data-testid="td-UserName"]');
+    this.nameError = page.locator('[id="inputUserName-error"]');
+    this.yearError = page.locator('[id="inputYearOfBirth-error"]');
   }
 
   async open() {
@@ -36,7 +42,16 @@ export class AddUserPage {
   async homeButtonClick() {
     await this.homeButton.click();
   }
+  async addUserButtonClick() {
+    await this.addUserButton.click();
+  }
   async userCreateChecker(username: string) {
     await expect(this.userCreate.filter({ hasText: username })).toBeVisible();
+  }
+  async nameValidationError(text: string) {
+    await expect(this.nameError).toHaveText(text);
+  }
+  async yearValidationError(text: string) {
+    await expect(this.yearError).toHaveText(text);
   }
 }
