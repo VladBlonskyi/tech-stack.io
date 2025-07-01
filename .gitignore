@@ -1,6 +1,6 @@
 # Playwright test outputs
 /test-results/
-/playwright-report/
+playwright-report/
 .playwright/
 .videos/
 .screenshots/
