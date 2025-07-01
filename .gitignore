@@ -1,6 +1,6 @@
 # Playwright test outputs
 /test-results/
-/playwright-report/
+playwright-report/
 .playwright/
 .videos/
 .screenshots/
@@ -36,3 +36,8 @@ coverage/
 .cache/
 .npm/
 .eslintcache
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/
