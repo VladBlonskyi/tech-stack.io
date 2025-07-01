@@ -2,78 +2,86 @@ import { test } from '@playwright/test';
 import { AddUserPage } from './POM/addUserPOM';
 
 test.describe('Positive Scenario', () => {
-  test('Check if user can create if gender is Male', async ({ page }) => {
+  test('A user is created when gender is Male', async ({ page }) => {
     const addUserPage = new AddUserPage(page);
 
     await addUserPage.open();
-    await addUserPage.genderSelectedMenu('1');
+    await addUserPage.selectGenderDropdown('1');
     await addUserPage.fillUserNameField('VlaDick');
     await addUserPage.fillYearOfBirthField(1995);
-    await addUserPage.createButtonClick();
-    await addUserPage.homeButtonClick();
-    await addUserPage.userCreateChecker('VlaDick');
+    await addUserPage.clickCreateButton();
+    await addUserPage.clickHomeNavigationButton();
+    await addUserPage.verifyUserCreated('VlaDick');
   });
 
-  test('Check if user can create if gender is Female', async ({ page }) => {
+  test('A user is created when gender is Female', async ({ page }) => {
     const addUserPage = new AddUserPage(page);
 
     await addUserPage.open();
-    await addUserPage.genderSelectedMenu('2');
+    await addUserPage.selectGenderDropdown('2');
     await addUserPage.fillUserNameField('Susana');
     await addUserPage.fillYearOfBirthField(2000);
-    await addUserPage.createButtonClick();
-    await addUserPage.homeButtonClick();
-    await addUserPage.userCreateChecker('Susana');
+    await addUserPage.clickCreateButton();
+    await addUserPage.clickHomeNavigationButton();
+    await addUserPage.verifyUserCreated('Susana');
   });
 
-  test('Check if user can create if gender is Undefined', async ({ page }) => {
+  test('A user is created when gender is Undefined', async ({ page }) => {
     const addUserPage = new AddUserPage(page);
 
     await addUserPage.open();
-    await addUserPage.genderSelectedMenu('0');
+    await addUserPage.selectGenderDropdown('0');
     await addUserPage.fillUserNameField('Rockstar');
     await addUserPage.fillYearOfBirthField(1945);
-    await addUserPage.createButtonClick();
-    await addUserPage.homeButtonClick();
-    await addUserPage.userCreateChecker('Rockstar');
+    await addUserPage.clickCreateButton();
+    await addUserPage.clickHomeNavigationButton();
+    await addUserPage.verifyUserCreated('Rockstar');
   });
 });
 
 test.describe('Negative Scenario', () => {
-  test('Check if user can create without username and validation message is displayed', async ({
+  test('User is not created without a username and a validation message is displayed', async ({
     page,
   }) => {
     const addUserPage = new AddUserPage(page);
 
     await addUserPage.open();
-    await addUserPage.genderSelectedMenu('1');
+    await addUserPage.selectGenderDropdown('1');
     await addUserPage.fillYearOfBirthField(1995);
-    await addUserPage.createButtonClick();
-    await addUserPage.nameValidationError('Name is requried');
+    await addUserPage.clickCreateButton();
+    await addUserPage.userNameValidationMessage('Name is requried');
   });
 
-  test('Check if user can create without Year and validation message is displayed', async ({
+  test('User is not created without a year and a validation message is displayed', async ({
     page,
   }) => {
     const addUserPage = new AddUserPage(page);
 
     await addUserPage.open();
-    await addUserPage.genderSelectedMenu('2');
+    await addUserPage.selectGenderDropdown('2');
     await addUserPage.fillUserNameField('Rockstar');
-    await addUserPage.createButtonClick();
-    await addUserPage.yearValidationError('Year of Birth is requried');
+    await addUserPage.clickCreateButton();
+    await addUserPage.yearValidationMessage('Year of Birth is requried');
   });
 
-  test('Check if user cannot be created if user is not an adult', async ({
+  test('User is not created if not an adult and a validation message is displayed', async ({
     page,
   }) => {
     const addUserPage = new AddUserPage(page);
 
     await addUserPage.open();
-    await addUserPage.genderSelectedMenu('1');
+    await addUserPage.selectGenderDropdown('1');
     await addUserPage.fillUserNameField('VlaDick');
     await addUserPage.fillYearOfBirthField(2010);
-    await addUserPage.createButtonClick();
-    await addUserPage.yearValidationError('Not valid Year of Birth is set');
+    await addUserPage.clickCreateButton();
+    await addUserPage.yearValidationMessage('Not valid Year of Birth is set');
   });
+});
+
+test('Add User page is opened', async ({ page }) => {
+  const addUserPage = new AddUserPage(page);
+
+  await page.goto('/');
+  await addUserPage.clickAddUserNavigationButton();
+  await addUserPage.verifyAddUserPageIsOpen();
 });

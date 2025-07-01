@@ -1,11 +1,4 @@
-# Playwright test outputs
-/test-results/
-playwright-report/
-.playwright/
-.videos/
-.screenshots/
-report/
-cache/
+
 
 # TypeScript compiled outputs
 *.js.map
@@ -38,6 +31,11 @@ coverage/
 .eslintcache
 
 # Playwright
-/playwright-report/
-/blob-report/
-/playwright/.cache/
+playwright-report/
+blob-report/
+test-results/
+.playwright/
+.videos/
+.screenshots/
+report/
+cache/
