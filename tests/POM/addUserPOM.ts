@@ -14,25 +14,17 @@ export class AddUserPage {
 
   constructor(public page: Page) {
     this.page = page;
-    this.genderSelectLocator = page.locator("//select[@id='selectGender']");
-    this.userNameFieldLocator = page.locator(
-      "//div/input[@id='inputUserName'][@type='text']"
-    );
-    this.yearOfBirthFieldLocator = page.locator(
-      "//input[contains(@aria-describedby,'yearOfBirthHelp')]"
-    );
-    this.createButtonLocator = page.locator(
-      "//button[starts-with(@type,'submit')]"
-    );
+    this.genderSelectLocator = page.getByTestId('select-Gender');
+    this.userNameFieldLocator = page.getByTestId('input-UserName');
+    this.yearOfBirthFieldLocator = page.getByTestId('input-YearOfBirth');
+    this.createButtonLocator = page.getByTestId('button-Create');
     this.homeButtonLocator = page.locator(
       "//ul[@class='navbar-nav flex-grow-1']/child::li[1]"
     );
     this.addUserButtonLocator = page.locator(
       "//ul[@class='navbar-nav flex-grow-1']/child::li[2]"
     );
-    this.userCreateLocator = page.locator(
-      "//tbody/tr/td[@data-testid='td-UserName']"
-    );
+    this.userCreateLocator = page.getByTestId('td-UserName');
     this.nameErrorLocator = page.locator(
       "//span/span[text()='Name is too short' or text()='Name is requried']"
     );
