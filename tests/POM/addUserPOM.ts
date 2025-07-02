@@ -1,57 +1,80 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 export class AddUserPage {
-  genderSelect: Locator;
-  userNameField: Locator;
-  yearOfBirthField: Locator;
-  createButton: Locator;
-  homeButton: Locator;
-  userCreate: Locator;
-  nameError: Locator;
-  yearError: Locator;
-  addUserButton: Locator;
+  genderSelectLocator: Locator;
+  userNameFieldLocator: Locator;
+  yearOfBirthFieldLocator: Locator;
+  createButtonLocator: Locator;
+  homeButtonLocator: Locator;
+  userCreateLocator: Locator;
+  nameErrorLocator: Locator;
+  yearErrorLocator: Locator;
+  addUserPageLocator: Locator;
+  addUserButtonLocator: Locator;
 
   constructor(public page: Page) {
     this.page = page;
-    this.genderSelect = page.locator('[data-testid="select-Gender"]');
-    this.userNameField = page.locator('[data-testid="input-UserName"]');
-    this.yearOfBirthField = page.locator('[data-testid="input-YearOfBirth"]');
-    this.createButton = page.locator('[data-testid="button-Create"]');
-    this.homeButton = page.locator('a:has-text("Home")');
-    this.addUserButton = page.locator('a:has-text("Home")');
-    this.userCreate = page.locator('[data-testid="td-UserName"]');
-    this.nameError = page.locator('[id="inputUserName-error"]');
-    this.yearError = page.locator('[id="inputYearOfBirth-error"]');
+    this.genderSelectLocator = page.locator("//select[@id='selectGender']");
+    this.userNameFieldLocator = page.locator(
+      "//div/input[@id='inputUserName'][@type='text']"
+    );
+    this.yearOfBirthFieldLocator = page.locator(
+      "//input[contains(@aria-describedby,'yearOfBirthHelp')]"
+    );
+    this.createButtonLocator = page.locator(
+      "//button[starts-with(@type,'submit')]"
+    );
+    this.homeButtonLocator = page.locator(
+      "//ul[@class='navbar-nav flex-grow-1']/child::li[1]"
+    );
+    this.addUserButtonLocator = page.locator(
+      "//ul[@class='navbar-nav flex-grow-1']/child::li[2]"
+    );
+    this.userCreateLocator = page.locator(
+      "//tbody/tr/td[@data-testid='td-UserName']"
+    );
+    this.nameErrorLocator = page.locator(
+      "//span/span[text()='Name is too short' or text()='Name is requried']"
+    );
+    this.yearErrorLocator = page.locator(
+      "//span/span[@id='inputYearOfBirth-error']"
+    );
+    this.addUserPageLocator = page.locator("//h1[text()='Add User']");
   }
 
   async open() {
     await this.page.goto('/Forms/AddUser');
   }
-  async genderSelectedMenu(value: string) {
-    await this.genderSelect.selectOption(value);
+  async selectGenderDropdown(value: string) {
+    await this.genderSelectLocator.selectOption(value);
   }
   async fillUserNameField(text: string) {
-    await this.userNameField.fill(text);
+    await this.userNameFieldLocator.fill(text);
   }
   async fillYearOfBirthField(year: number) {
-    await this.yearOfBirthField.fill(year.toString());
+    await this.yearOfBirthFieldLocator.fill(year.toString());
   }
-  async createButtonClick() {
-    await this.createButton.click();
+  async clickCreateButton() {
+    await this.createButtonLocator.click();
   }
-  async homeButtonClick() {
-    await this.homeButton.click();
+  async clickHomeNavigationButton() {
+    await this.homeButtonLocator.click();
   }
-  async addUserButtonClick() {
-    await this.addUserButton.click();
+  async clickAddUserNavigationButton() {
+    await this.addUserButtonLocator.click();
   }
-  async userCreateChecker(username: string) {
-    await expect(this.userCreate.filter({ hasText: username })).toBeVisible();
+  async verifyAddUserPageIsOpen() {
+    await expect(this.addUserPageLocator).toBeVisible();
   }
-  async nameValidationError(text: string) {
-    await expect(this.nameError).toHaveText(text);
+  async verifyUserCreated(username: string) {
+    await expect(
+      this.userCreateLocator.filter({ hasText: username })
+    ).toBeVisible();
   }
-  async yearValidationError(text: string) {
-    await expect(this.yearError).toHaveText(text);
+  async userNameValidationMessage(text: string) {
+    await expect(this.nameErrorLocator).toHaveText(text);
+  }
+  async yearValidationMessage(text: string) {
+    await expect(this.yearErrorLocator).toHaveText(text);
   }
 }
