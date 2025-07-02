@@ -16,7 +16,7 @@ export class AddUserPage {
     this.page = page;
     this.genderSelectLocator = page.locator("//select[@id='selectGender']");
     this.userNameFieldLocator = page.locator(
-      "//div/input[@id ='inputUserName'][@type='text']"
+      "//div/input[@id='inputUserName'][@type='text']"
     );
     this.yearOfBirthFieldLocator = page.locator(
       "//input[contains(@aria-describedby,'yearOfBirthHelp')]"
@@ -25,10 +25,10 @@ export class AddUserPage {
       "//button[starts-with(@type,'submit')]"
     );
     this.homeButtonLocator = page.locator(
-      "//ul[@class = 'navbar-nav flex-grow-1']/child::li[1]"
+      "//ul[@class='navbar-nav flex-grow-1']/child::li[1]"
     );
     this.addUserButtonLocator = page.locator(
-      "//ul[@class = 'navbar-nav flex-grow-1']/child::li[2]"
+      "//ul[@class='navbar-nav flex-grow-1']/child::li[2]"
     );
     this.userCreateLocator = page.locator(
       "//tbody/tr/td[@data-testid='td-UserName']"
