@@ -11,6 +11,7 @@ export class AddUserPage {
   yearErrorLocator: Locator;
   addUserPageLocator: Locator;
   addUserButtonLocator: Locator;
+  homePageLocator: Locator;
 
   constructor(public page: Page) {
     this.page = page;
@@ -40,6 +41,7 @@ export class AddUserPage {
       "//span/span[@id='inputYearOfBirth-error']"
     );
     this.addUserPageLocator = page.locator("//h1[text()='Add User']");
+    this.homePageLocator = page.locator("//h1[text()='Users and Addresses']");
   }
 
   async open() {
