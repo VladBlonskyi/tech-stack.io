@@ -8,6 +8,10 @@ export class UserSteps {
     this.addUserPage = new AddUserPage(page);
   }
 
+  async openMainpage() {
+    await this.addUserPage.open();
+  }
+
   async fillAllFields(gender?: string, name?: string, year?: number) {
     if (gender) {
       await this.addUserPage.selectGenderDropdown(gender);
@@ -19,5 +23,23 @@ export class UserSteps {
       await this.addUserPage.fillYearOfBirthField(year);
     }
     await this.addUserPage.clickCreateButton();
+  }
+  async clickHomeNavigationButton() {
+    await this.addUserPage.clickHomeNavigationButton();
+  }
+  async clickAddUserNavigationButton() {
+    await this.addUserPage.clickAddUserNavigationButton();
+  }
+  async verifyAddUserPageIsOpen() {
+    await this.addUserPage.verifyAddUserPageIsOpen();
+  }
+  async verifyUserCreated(username: string) {
+    await this.addUserPage.verifyUserCreated(username);
+  }
+  async userNameValidationMessage(text: string) {
+    await this.addUserPage.userNameValidationMessage(text);
+  }
+  async yearValidationMessage(text: string) {
+    await this.addUserPage.yearValidationMessage(text);
   }
 }
