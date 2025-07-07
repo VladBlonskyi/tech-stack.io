@@ -1,6 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { AddUserPage } from '../POM/addUserPOM';
-import { Gender } from '../enums/enums';
+import { UserDTO } from '../DTO/userDTO';
 
 export class UserSteps {
   addUserPage: AddUserPage;
@@ -14,15 +14,15 @@ export class UserSteps {
     await this.addUserPage.addUserPageLocator.waitFor({ state: 'visible' });
   }
 
-  async fillAllFields(gender?: Gender, name?: string, year?: number) {
-    if (gender) {
-      await this.addUserPage.selectGenderDropdown(gender);
+  async fillAllFields(user: UserDTO) {
+    if (user.gender) {
+      await this.addUserPage.selectGenderDropdown(user.gender);
     }
-    if (name) {
-      await this.addUserPage.fillUserNameField(name);
+    if (user.name) {
+      await this.addUserPage.fillUserNameField(user.name);
     }
-    if (year) {
-      await this.addUserPage.fillYearOfBirthField(year);
+    if (user.year) {
+      await this.addUserPage.fillYearOfBirthField(user.year);
     }
     await this.addUserPage.clickCreateButton();
   }
