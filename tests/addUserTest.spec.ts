@@ -1,5 +1,6 @@
 import { test } from '@playwright/test';
-import { UserSteps, Gender } from './Steps/steps';
+import { UserSteps } from './Steps/steps';
+import { Gender } from './enums/enums';
 
 let userSteps: UserSteps;
 

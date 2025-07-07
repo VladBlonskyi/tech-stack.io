@@ -1,11 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { AddUserPage } from '../POM/addUserPOM';
-
-export enum Gender {
-  Undefined = '0',
-  Male = '1',
-  Female = '2',
-}
+import { Gender } from '../enums/enums';
 
 export class UserSteps {
   addUserPage: AddUserPage;
@@ -19,7 +14,7 @@ export class UserSteps {
     await this.addUserPage.addUserPageLocator.waitFor({ state: 'visible' });
   }
 
-  async fillAllFields(gender?: string, name?: string, year?: number) {
+  async fillAllFields(gender?: Gender, name?: string, year?: number) {
     if (gender) {
       await this.addUserPage.selectGenderDropdown(gender);
     }
