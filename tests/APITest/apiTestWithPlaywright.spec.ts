@@ -19,7 +19,6 @@ test.describe('Full user flow scenario', () => {
   test('Get info about user', async ({ request }) => {
     const response = await request.get(`/api/User/${createdUserId}`);
 
-    const user = await response.json();
     expect(response.ok()).toBeTruthy();
     expect(response.status()).toBe(200);
   });
