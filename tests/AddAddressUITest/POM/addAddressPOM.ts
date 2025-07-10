@@ -45,18 +45,6 @@ export class AddAddressPOM {
     await this.zipCodeInput.fill(address.zipCode);
     await this.createButton.click();
   }
-  async getStreetAddressError() {
-    return this.streetAddressError.textContent();
-  }
-  async getCityError() {
-    return this.cityError.textContent();
-  }
-  async getStateError() {
-    return this.stateError.textContent();
-  }
-  async getZipCodeError() {
-    return this.zipCodeError.textContent();
-  }
   async deleteAddress() {
     if (await this.deleteFirstAddress.isVisible()) {
       await this.deleteFirstAddress.click();
@@ -65,6 +53,39 @@ export class AddAddressPOM {
     if (await this.deleteSecondAddress.isVisible()) {
       await this.deleteSecondAddress.click();
       await this.acceptDelete.click();
+    }
+  }
+  async getStreetAddressError() {
+    await expect(this.streetAddressError).toHaveText(
+      'Street Address is required'
+    );
+  }
+  async getCityError() {
+    await expect(this.cityError).toHaveText('City is required');
+  }
+  async getStateError() {
+    await expect(this.stateError).toHaveText('State is required');
+  }
+  async getZipCodeError() {
+    await expect(this.zipCodeError).toHaveText('Zip Code is required');
+  }
+
+  async checkExpectedError(field: string, expectedText: string) {
+    switch (field) {
+      case 'streetAddress':
+        await expect(this.streetAddressError).toHaveText(expectedText);
+        break;
+      case 'city':
+        await expect(this.cityError).toHaveText(expectedText);
+        break;
+      case 'state':
+        await expect(this.stateError).toHaveText(expectedText);
+        break;
+      case 'zipCode':
+        await expect(this.zipCodeError).toHaveText(expectedText);
+        break;
+      default:
+        throw new Error(`Unknown field: ${field}`);
     }
   }
 }

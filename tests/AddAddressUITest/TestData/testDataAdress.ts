@@ -1,4 +1,4 @@
-import { AddAddressDTO } from '../DTO/addAddressDTO';
+import { AddAddressDTO, AddAddressNegativeTestDTO } from '../DTO/addAddressDTO';
 
 export const validTestData: AddAddressDTO[] = [
   {
@@ -14,7 +14,7 @@ export const validTestData: AddAddressDTO[] = [
     zipCode: '10239',
   },
 ];
-export const invalidTestData: AddAddressDTO[] = [
+export const invalidTestData: AddAddressNegativeTestDTO[] = [
   {
     streetAddress: '',
     city: 'Kyiv',

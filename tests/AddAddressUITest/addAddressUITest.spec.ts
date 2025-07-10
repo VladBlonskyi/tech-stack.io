@@ -1,4 +1,4 @@
-import { test, expect, Page } from '@playwright/test';
+import { test } from '@playwright/test';
 import { AddAddressPOM } from './POM/addAddressPOM';
 import { validTestData, invalidTestData } from './TestData/testDataAdress';
 
@@ -32,25 +32,10 @@ test.describe('Add Address Negative Scenario', () => {
   for (const data of invalidTestData) {
     test(`Negative Test: missing ${data.expectedErrorField}`, async () => {
       await addAddressPOM.fillAddressForm(data);
-
-      if (data.expectedErrorField === 'streetAddress') {
-        expect(await addAddressPOM.getStreetAddressError()).toBe(
-          data.expectedErrorText
-        );
-      }
-      if (data.expectedErrorField === 'city') {
-        expect(await addAddressPOM.getCityError()).toBe(data.expectedErrorText);
-      }
-      if (data.expectedErrorField === 'state') {
-        expect(await addAddressPOM.getStateError()).toBe(
-          data.expectedErrorText
-        );
-      }
-      if (data.expectedErrorField === 'zipCode') {
-        expect(await addAddressPOM.getZipCodeError()).toBe(
-          data.expectedErrorText
-        );
-      }
+      await addAddressPOM.checkExpectedError(
+        data.expectedErrorField,
+        data.expectedErrorText
+      );
     });
   }
 });
