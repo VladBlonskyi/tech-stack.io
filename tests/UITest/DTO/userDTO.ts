@@ -1,4 +1,4 @@
-import { Gender } from '../enums/enums';
+import { Gender } from '../Enums/enums';
 
 export interface UserDTO {
   gender?: Gender;

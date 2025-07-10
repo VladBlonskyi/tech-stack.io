@@ -1,5 +1,5 @@
 import { UserDTO } from './userDTO';
-import { Gender } from '../enums/enums';
+import { Gender } from '../Enums/enums';
 
 export const TestUsers = {
   MALE_ADULT: {
