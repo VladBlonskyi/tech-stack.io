@@ -1,6 +1,6 @@
 import { Page, expect } from '@playwright/test';
 import { AddUserPage } from '../POM/addUserPOM';
-import { UserDTO } from '../DTO/userDTO';
+import { UserDTO, UserDTOInvalid } from '../DTO/userDTO';
 
 export class UserSteps {
   addUserPage: AddUserPage;
@@ -13,8 +13,7 @@ export class UserSteps {
     await this.addUserPage.open();
     await this.addUserPage.addUserPageLocator.waitFor({ state: 'visible' });
   }
-
-  async fillAllFields(user: UserDTO) {
+  async fillAllFields(user: UserDTO | UserDTOInvalid) {
     if (user.gender) {
       await this.addUserPage.selectGenderDropdown(user.gender);
     }
@@ -48,5 +47,12 @@ export class UserSteps {
   }
   async yearValidationMessage(text: string) {
     await this.addUserPage.yearValidationMessage(text);
+  }
+  async deletePerson(name: string) {
+    const deleteButton = this.addUserPage.getDeleteButtonByName(name);
+    if (await deleteButton.isVisible()) {
+      await deleteButton.click();
+      await this.addUserPage.acceptDeleteClick();
+    }
   }
 }

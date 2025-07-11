@@ -1,4 +1,4 @@
-import { UserDTO } from './userDTO';
+import { UserDTO, UserDTOInvalid } from '../DTO/userDTO';
 import { Gender } from '../Enums/enums';
 
 export const TestUsers = {
@@ -22,15 +22,13 @@ export const TestUsers = {
 
   WITHOUT_NAME: {
     gender: Gender.Male,
-    name: undefined,
     year: 1995,
-  } as UserDTO,
+  } as UserDTOInvalid,
 
   WITHOUT_YEAR: {
     gender: Gender.Male,
     name: 'Vladick',
-    year: undefined,
-  } as UserDTO,
+  } as UserDTOInvalid,
 
   NOT_ADULT: {
     gender: Gender.Male,

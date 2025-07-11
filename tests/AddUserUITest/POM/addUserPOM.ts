@@ -1,17 +1,18 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 export class AddUserPage {
-  genderSelectLocator: Locator;
-  userNameFieldLocator: Locator;
-  yearOfBirthFieldLocator: Locator;
-  createButtonLocator: Locator;
-  homeButtonLocator: Locator;
-  userCreateLocator: Locator;
-  nameErrorLocator: Locator;
-  yearErrorLocator: Locator;
-  addUserPageLocator: Locator;
-  addUserButtonLocator: Locator;
-  homePageLocator: Locator;
+  readonly genderSelectLocator: Locator;
+  readonly userNameFieldLocator: Locator;
+  readonly yearOfBirthFieldLocator: Locator;
+  readonly createButtonLocator: Locator;
+  readonly homeButtonLocator: Locator;
+  readonly userCreateLocator: Locator;
+  readonly nameErrorLocator: Locator;
+  readonly yearErrorLocator: Locator;
+  readonly addUserPageLocator: Locator;
+  readonly addUserButtonLocator: Locator;
+  readonly homePageLocator: Locator;
+  readonly acceptDelete: Locator;
 
   constructor(public page: Page) {
     this.page = page;
@@ -34,6 +35,7 @@ export class AddUserPage {
     );
     this.addUserPageLocator = page.locator("//h1[text()='Add User']");
     this.homePageLocator = page.locator("//h1[text()='Users and Addresses']");
+    this.acceptDelete = page.getByTestId('button-Yes');
   }
 
   async open() {
@@ -70,5 +72,13 @@ export class AddUserPage {
   }
   async yearValidationMessage(text: string) {
     await expect(this.yearErrorLocator).toHaveText(text);
+  }
+  getDeleteButtonByName(Name: string) {
+    return this.page
+      .locator(`tr:has-text("${Name}")`)
+      .getByTestId('button-Delete');
+  }
+  async acceptDeleteClick() {
+    await this.acceptDelete.click();
   }
 }
