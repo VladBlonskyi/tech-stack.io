@@ -12,6 +12,7 @@ export class AddUserPage {
   addUserPageLocator: Locator;
   addUserButtonLocator: Locator;
   homePageLocator: Locator;
+  acceptDelete: Locator;
 
   constructor(public page: Page) {
     this.page = page;
@@ -34,6 +35,7 @@ export class AddUserPage {
     );
     this.addUserPageLocator = page.locator("//h1[text()='Add User']");
     this.homePageLocator = page.locator("//h1[text()='Users and Addresses']");
+    this.acceptDelete = page.getByTestId('button-Yes');
   }
 
   async open() {
@@ -70,5 +72,13 @@ export class AddUserPage {
   }
   async yearValidationMessage(text: string) {
     await expect(this.yearErrorLocator).toHaveText(text);
+  }
+  getDeleteButtonByName(Name: string) {
+    return this.page
+      .locator(`tr:has-text("${Name}")`)
+      .getByTestId('button-Delete');
+  }
+  async acceptDeleteClick() {
+    await this.acceptDelete.click();
   }
 }
