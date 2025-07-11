@@ -1,18 +1,18 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 export class AddUserPage {
-  genderSelectLocator: Locator;
-  userNameFieldLocator: Locator;
-  yearOfBirthFieldLocator: Locator;
-  createButtonLocator: Locator;
-  homeButtonLocator: Locator;
-  userCreateLocator: Locator;
-  nameErrorLocator: Locator;
-  yearErrorLocator: Locator;
-  addUserPageLocator: Locator;
-  addUserButtonLocator: Locator;
-  homePageLocator: Locator;
-  acceptDelete: Locator;
+  readonly genderSelectLocator: Locator;
+  readonly userNameFieldLocator: Locator;
+  readonly yearOfBirthFieldLocator: Locator;
+  readonly createButtonLocator: Locator;
+  readonly homeButtonLocator: Locator;
+  readonly userCreateLocator: Locator;
+  readonly nameErrorLocator: Locator;
+  readonly yearErrorLocator: Locator;
+  readonly addUserPageLocator: Locator;
+  readonly addUserButtonLocator: Locator;
+  readonly homePageLocator: Locator;
+  readonly acceptDelete: Locator;
 
   constructor(public page: Page) {
     this.page = page;
