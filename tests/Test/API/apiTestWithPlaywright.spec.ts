@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
-import { TestUsersAPI } from './DTOAPI/testDataApi';
-import { UserDTOResponse } from './DTOAPI/dtoAPIResponse';
+import { UserResponseDTO } from '../../DTO/apiDTO';
+import { TestUsersAPI } from '../../TestData/apiData';
 
 test.describe('Full user flow scenario', () => {
-  let createdUser: UserDTOResponse;
+  let createdUser: UserResponseDTO;
 
   test.beforeEach(async ({ request }) => {
     const response = await request.post('/api/User', {
@@ -19,7 +19,7 @@ test.describe('Full user flow scenario', () => {
 
   test('Get info about user', async ({ request }) => {
     const response = await request.get(`/api/User/${createdUser.id}`);
-    const user: UserDTOResponse = await response.json();
+    const user: UserResponseDTO = await response.json();
 
     expect(response.status()).toBe(200);
     expect(user.id).toBe(createdUser.id);
@@ -35,7 +35,7 @@ test.describe('Full user flow scenario', () => {
     });
     expect(response.ok()).toBeTruthy();
     expect(response.status()).toBe(200);
-    const user: UserDTOResponse = await response.json();
+    const user: UserResponseDTO = await response.json();
 
     expect(user.name).toBe(TestUsersAPI.FEMALE_ADULT.Name);
     expect(user.yearOfBirth).toBe(TestUsersAPI.FEMALE_ADULT.YearOfBirth);
@@ -48,7 +48,7 @@ test.describe('Full user flow scenario', () => {
     expect(response.ok()).toBeTruthy();
     expect(response.status()).toBe(200);
 
-    const users: UserDTOResponse[] = await response.json();
+    const users: UserResponseDTO[] = await response.json();
 
     expect(Array.isArray(users)).toBe(true);
 

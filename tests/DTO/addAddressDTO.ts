@@ -5,7 +5,7 @@ export interface AddAddressDTO {
   zipCode: string;
 }
 
-export interface AddAddressNegativeTestDTO extends AddAddressDTO {
+export interface AddAddressNegativeDTO extends AddAddressDTO {
   expectedErrorField: 'streetAddress' | 'city' | 'state' | 'zipCode';
   expectedErrorText: string;
 }

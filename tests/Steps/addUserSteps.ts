@@ -1,19 +1,19 @@
 import { Page, expect } from '@playwright/test';
-import { AddUserPage } from '../POM/addUserPOM';
-import { UserDTO, UserDTOInvalid } from '../DTO/userDTO';
+import { AddUserPOM } from '../POM/addUserPOM';
+import { UserGenderDTO, UserInvalidDTO } from '../DTO/addUserDTO';
 
-export class UserSteps {
-  addUserPage: AddUserPage;
+export class AddUserSteps {
+  addUserPage: AddUserPOM;
 
   constructor(public page: Page) {
-    this.addUserPage = new AddUserPage(page);
+    this.addUserPage = new AddUserPOM(page);
   }
 
   async openMainpage() {
     await this.addUserPage.open();
     await this.addUserPage.addUserPageLocator.waitFor({ state: 'visible' });
   }
-  async fillAllFields(user: UserDTO | UserDTOInvalid) {
+  async fillAllFields(user: UserGenderDTO | UserInvalidDTO) {
     if (user.gender) {
       await this.addUserPage.selectGenderDropdown(user.gender);
     }

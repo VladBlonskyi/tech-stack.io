@@ -1,6 +1,6 @@
 import { Locator, Page, expect } from '@playwright/test';
 
-export class AddUserPage {
+export class AddUserPOM {
   readonly genderSelectLocator: Locator;
   readonly userNameFieldLocator: Locator;
   readonly yearOfBirthFieldLocator: Locator;
