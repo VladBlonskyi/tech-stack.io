@@ -8,6 +8,17 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
+    env:
+      MALE_ADULT_NAME: ${{ secrets.MALE_ADULT_NAME }}
+      MALE_ADULT_YEAR: ${{ secrets.MALE_ADULT_YEAR }}
+      FEMALE_ADULT_NAME: ${{ secrets.FEMALE_ADULT_Name }}
+      FEMALE_ADULT_YEAR: ${{ secrets.FEMALE_ADULT_YEAR }}
+      UNDEFINED_GENDER_NAME: ${{ secrets.UNDEFINED_GENDER_Name }}
+      UNDEFINED_GENDER_YEAR: ${{ secrets.UNDEFINED_GENDER_YEAR }}
+      NOT_ADULT_NAME: ${{ secrets.NOT_ADULT_Name }}
+      NOT_ADULT_YEAR: ${{ secrets.NOT_ADULT_YEAR }}
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
