@@ -5,25 +5,25 @@ import 'dotenv/config';
 export const TestUsersData = {
   MALE_ADULT: {
     gender: GenderUIEnum.Male,
-    name: process.env.MALE_ADULT_Name,
+    name: process.env.MALE_ADULT_NAME,
     year: Number(process.env.MALE_ADULT_YEAR),
   } as UserGenderDTO,
 
   FEMALE_ADULT: {
     gender: GenderUIEnum.Female,
-    name: process.env.FEMALE_ADULT_Name,
+    name: process.env.FEMALE_ADULT_NAME,
     year: Number(process.env.FEMALE_ADULT_YEAR),
   } as UserGenderDTO,
 
   UNDEFINED_GENDER: {
     gender: GenderUIEnum.Undefined,
-    name: process.env.UNDEFINED_GENDER_Name,
+    name: process.env.UNDEFINED_GENDER_NAME,
     year: Number(process.env.UNDEFINED_GENDER_YEAR),
   } as UserGenderDTO,
 
   NOT_ADULT: {
     gender: GenderUIEnum.Male,
-    name: process.env.NOT_ADULT_Name,
+    name: process.env.NOT_ADULT_NAME,
     year: Number(process.env.NOT_ADULT_YEAR),
   } as UserGenderDTO,
 
@@ -34,6 +34,6 @@ export const TestUsersData = {
 
   WITHOUT_YEAR: {
     gender: GenderUIEnum.Male,
-    name: process.env.MALE_ADULT_Name,
+    name: process.env.MALE_ADULT_NAME,
   } as UserInvalidDTO,
 };
