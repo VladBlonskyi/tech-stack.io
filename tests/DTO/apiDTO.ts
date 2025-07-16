@@ -1,12 +1,12 @@
 import { GenderAPIEnum } from '../Enums/enumAPI';
 
-export interface UserAPIDTO {
+export class UserAPIDTO {
   gender?: GenderAPIEnum;
   Name?: string;
   YearOfBirth?: number;
 }
 
-export interface UserResponseDTO {
+export class UserResponseDTO {
   id: string;
   name: string;
   yearOfBirth: number;
