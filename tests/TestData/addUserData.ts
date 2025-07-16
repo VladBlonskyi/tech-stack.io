@@ -1,38 +1,39 @@
 import { UserGenderDTO, UserInvalidDTO } from '../DTO/addUserDTO';
 import { GenderUIEnum } from '../Enums/enumAddUser';
+import 'dotenv/config';
 
 export const TestUsersData = {
   MALE_ADULT: {
     gender: GenderUIEnum.Male,
-    name: 'Vladick',
-    year: 1995,
+    name: process.env.MALE_ADULT_NAME,
+    year: Number(process.env.MALE_ADULT_YEAR),
   } as UserGenderDTO,
 
   FEMALE_ADULT: {
     gender: GenderUIEnum.Female,
-    name: 'Susana',
-    year: 2000,
+    name: process.env.FEMALE_ADULT_NAME,
+    year: Number(process.env.FEMALE_ADULT_YEAR),
   } as UserGenderDTO,
 
   UNDEFINED_GENDER: {
     gender: GenderUIEnum.Undefined,
-    name: 'Rockstar',
-    year: 1945,
+    name: process.env.UNDEFINED_GENDER_NAME,
+    year: Number(process.env.UNDEFINED_GENDER_YEAR),
+  } as UserGenderDTO,
+
+  NOT_ADULT: {
+    gender: GenderUIEnum.Male,
+    name: process.env.NOT_ADULT_NAME,
+    year: Number(process.env.NOT_ADULT_YEAR),
   } as UserGenderDTO,
 
   WITHOUT_NAME: {
     gender: GenderUIEnum.Male,
-    year: 1995,
+    year: Number(process.env.MALE_ADULT_YEAR),
   } as UserInvalidDTO,
 
   WITHOUT_YEAR: {
     gender: GenderUIEnum.Male,
-    name: 'Vladick',
+    name: process.env.MALE_ADULT_NAME,
   } as UserInvalidDTO,
-
-  NOT_ADULT: {
-    gender: GenderUIEnum.Male,
-    name: 'Vladick',
-    year: 2015,
-  } as UserGenderDTO,
 };

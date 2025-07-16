@@ -1,27 +1,38 @@
 name: Playwright Tests
 on:
   push:
-    branches: [ main, master ]
+    branches: main
   pull_request:
-    branches: [ main, master ]
+    branches: main
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+
+    env:
+      MALE_ADULT_NAME: ${{ secrets.MALE_ADULT_NAME }}
+      MALE_ADULT_YEAR: ${{ secrets.MALE_ADULT_YEAR }}
+      FEMALE_ADULT_NAME: ${{ secrets.FEMALE_ADULT_Name }}
+      FEMALE_ADULT_YEAR: ${{ secrets.FEMALE_ADULT_YEAR }}
+      UNDEFINED_GENDER_NAME: ${{ secrets.UNDEFINED_GENDER_Name }}
+      UNDEFINED_GENDER_YEAR: ${{ secrets.UNDEFINED_GENDER_YEAR }}
+      NOT_ADULT_NAME: ${{ secrets.NOT_ADULT_Name }}
+      NOT_ADULT_YEAR: ${{ secrets.NOT_ADULT_YEAR }}
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
