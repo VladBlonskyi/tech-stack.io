@@ -1,13 +1,16 @@
 import { test, expect } from '@playwright/test';
 import { UserResponseDTO } from '../../DTO/apiDTO';
-import { TestUsersAPI } from '../../TestData/apiData';
+import { ApiFactory } from '../../Factory/apiFactory';
 
 test.describe('Full user flow scenario', () => {
   let createdUser: UserResponseDTO;
 
+  const userMale = ApiFactory.createNewUserMale('Vlad', 1995);
+  const userFemale = ApiFactory.createNewUserFemale('Susana', 2000);
+
   test.beforeEach(async ({ request }) => {
     const response = await request.post('/api/User', {
-      data: TestUsersAPI.MALE_ADULT,
+      data: userMale,
     });
 
     createdUser = await response.json();
@@ -31,15 +34,15 @@ test.describe('Full user flow scenario', () => {
 
   test('Update user', async ({ request }) => {
     const response = await request.put(`/api/User/${createdUser.id}`, {
-      data: TestUsersAPI.FEMALE_ADULT,
+      data: userFemale,
     });
     expect(response.ok()).toBeTruthy();
     expect(response.status()).toBe(200);
     const user: UserResponseDTO = await response.json();
 
-    expect(user.name).toBe(TestUsersAPI.FEMALE_ADULT.Name);
-    expect(user.yearOfBirth).toBe(TestUsersAPI.FEMALE_ADULT.YearOfBirth);
-    expect(user.gender).toBe(TestUsersAPI.FEMALE_ADULT.gender);
+    expect(user.name).toBe(userFemale.Name);
+    expect(user.yearOfBirth).toBe(userFemale.YearOfBirth);
+    expect(user.gender).toBe(userFemale.gender);
   });
 
   test('GET info about all users', async ({ request }) => {

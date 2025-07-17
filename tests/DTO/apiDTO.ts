@@ -1,9 +1,9 @@
 import { GenderAPIEnum } from '../Enums/enumAPI';
 
 export class UserAPIDTO {
-  gender?: GenderAPIEnum;
-  Name?: string;
-  YearOfBirth?: number;
+  gender: GenderAPIEnum;
+  Name: string;
+  YearOfBirth: number;
 }
 
 export class UserResponseDTO {
