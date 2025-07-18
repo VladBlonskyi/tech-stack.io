@@ -3,9 +3,6 @@ export class AddAddressDTO {
   city: string;
   state: string;
   zipCode: string;
-}
-
-export class AddAddressNegativeDTO extends AddAddressDTO {
-  expectedErrorField!: 'streetAddress' | 'city' | 'state' | 'zipCode';
-  expectedErrorText!: string;
+  expectedErrorField?: 'streetAddress' | 'city' | 'state' | 'zipCode';
+  expectedErrorText?: string;
 }

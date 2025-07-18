@@ -1,12 +1,6 @@
 import { GenderUIEnum } from '../Enums/enumAddUser';
 
-export class UserGenderDTO {
-  gender: GenderUIEnum;
-  name: string;
-  year: number;
-}
-
-export class UserInvalidDTO {
+export class AddUserDTO {
   gender?: GenderUIEnum;
   name?: string;
   year?: number;
