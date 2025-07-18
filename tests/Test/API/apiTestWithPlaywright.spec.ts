@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { UserResponseDTO } from '../../DTO/apiDTO';
-import { ApiFactory } from '../../Factory/apiFactory';
+import { UserApiFactory } from '../../Factory/apiFactory';
 
 test.describe('Full user flow scenario', () => {
   let createdUser: UserResponseDTO;
 
-  const userMale = ApiFactory.createNewUserMale('Vlad', 1995);
-  const userFemale = ApiFactory.createNewUserFemale('Susana', 2000);
+  const userMale = UserApiFactory.createNewUserMale('Vlad', 1995);
+  const userFemale = UserApiFactory.createNewUserFemale('Susana', 2000);
 
   test.beforeEach(async ({ request }) => {
     const response = await request.post('/api/User', {
