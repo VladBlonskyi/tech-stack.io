@@ -2,7 +2,7 @@ import { UserDTO } from '../DTO/userDTO';
 import { GenderEnum } from '../Enums/enumGender';
 import 'dotenv/config';
 
-export class UserUiFactory {
+export class UserFactory {
   static createNewUser(type: string): UserDTO {
     switch (type) {
       case 'Male_Gender':
