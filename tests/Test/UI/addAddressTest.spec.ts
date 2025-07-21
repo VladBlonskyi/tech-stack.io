@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import { AddAddressSteps } from '../../Steps/addAddressSteps';
 import { AddAddressFactory } from '../../Factory/addAddressFactory';
+import { AddAddressSteps } from '../../Steps/addAddressSteps';
 
 let addAddressSteps: AddAddressSteps;
 
@@ -15,27 +15,44 @@ test.describe('Add Address Positive Scenario', () => {
     AddAddressFactory.createNewAddress('Lviv'),
   ];
 
-  validAddressData.forEach((data) => {
+  for (const data of validAddressData) {
     test(`Check that Address can be added: ${data.streetAddress}`, async () => {
       await addAddressSteps.fillAddressForm(data);
       await addAddressSteps.deleteAddedAddress(data.streetAddress);
     });
-  });
+  }
 });
 
 test.describe('Add Address Negative Scenario', () => {
   const invalidAddressData = [
-    AddAddressFactory.createInvalidAddress(),
-    AddAddressFactory.createInvalidCity(),
-    AddAddressFactory.createInvalidState(),
-    AddAddressFactory.createInvalidzipCode(),
+    {
+      data: AddAddressFactory.createInvalidAddress(),
+      expectedField: 'streetAddress',
+      expectedText: 'Street Address is required',
+    },
+    {
+      data: AddAddressFactory.createInvalidCity(),
+      expectedField: 'city',
+      expectedText: 'City is required',
+    },
+    {
+      data: AddAddressFactory.createInvalidState(),
+      expectedField: 'state',
+      expectedText: 'State is required',
+    },
+    {
+      data: AddAddressFactory.createInvalidzipCode(),
+      expectedField: 'zipCode',
+      expectedText: 'Zip Code is required',
+    },
   ];
+
   for (const data of invalidAddressData) {
-    test(`Check that field ${data.expectedErrorField} is required`, async () => {
-      await addAddressSteps.fillAddressForm(data);
+    test(`Check that field ${data.expectedField} is required`, async () => {
+      await addAddressSteps.fillAddressForm(data.data);
       await addAddressSteps.checkExpectedError(
-        data.expectedErrorField!,
-        data.expectedErrorText!
+        data.expectedField,
+        data.expectedText
       );
     });
   }

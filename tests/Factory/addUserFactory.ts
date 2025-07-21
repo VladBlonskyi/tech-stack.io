@@ -1,45 +1,45 @@
-import { AddUserDTO } from '../DTO/addUserDTO';
-import { GenderUIEnum } from '../Enums/enumAddUser';
+import { UserDTO } from '../DTO/userDTO';
+import { GenderEnum } from '../Enums/enumGender';
 import 'dotenv/config';
 
 export class UserUiFactory {
-  static createNewUser(type: string): AddUserDTO {
+  static createNewUser(type: string): UserDTO {
     switch (type) {
       case 'Male_Gender':
         return {
-          gender: GenderUIEnum.Male,
-          name: process.env.MALE_ADULT_NAME,
-          year: Number(process.env.MALE_ADULT_YEAR),
+          gender: GenderEnum.Male,
+          name: process.env.MALE_ADULT_NAME!,
+          yearOfBirth: Number(process.env.MALE_ADULT_YEAR),
         };
       case 'Female_Gender':
         return {
-          gender: GenderUIEnum.Female,
-          name: process.env.FEMALE_ADULT_NAME,
-          year: Number(process.env.FEMALE_ADULT_YEAR),
+          gender: GenderEnum.Female,
+          name: process.env.FEMALE_ADULT_NAME!,
+          yearOfBirth: Number(process.env.FEMALE_ADULT_YEAR),
         };
       case 'Undefined_Gender':
         return {
-          gender: GenderUIEnum.Undefined,
-          name: process.env.UNDEFINED_GENDER_NAME,
-          year: Number(process.env.UNDEFINED_GENDER_YEAR),
+          gender: GenderEnum.Undefined,
+          name: process.env.UNDEFINED_GENDER_NAME!,
+          yearOfBirth: Number(process.env.UNDEFINED_GENDER_YEAR),
         };
       case 'Without_Name':
         return {
-          gender: GenderUIEnum.Female,
+          gender: GenderEnum.Female,
           name: '',
-          year: Number(process.env.FEMALE_ADULT_YEAR),
+          yearOfBirth: Number(process.env.FEMALE_ADULT_YEAR),
         };
       case 'Without_Year':
         return {
-          gender: GenderUIEnum.Undefined,
-          name: process.env.UNDEFINED_GENDER_NAME,
-          year: Number(''),
+          gender: GenderEnum.Undefined,
+          name: process.env.UNDEFINED_GENDER_NAME!,
+          yearOfBirth: Number(''),
         };
       case 'Not_Adult':
         return {
-          gender: GenderUIEnum.Male,
-          name: process.env.NOT_ADULT_NAME,
-          year: Number(process.env.NOT_ADULT_YEAR),
+          gender: GenderEnum.Male,
+          name: process.env.NOT_ADULT_NAME!,
+          yearOfBirth: Number(process.env.NOT_ADULT_YEAR),
         };
       default:
         throw new Error(`Unknown person: ${type}`);

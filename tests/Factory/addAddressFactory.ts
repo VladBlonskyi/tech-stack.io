@@ -21,14 +21,6 @@ export class AddAddressFactory {
         throw new Error(`Unknown city: ${city}`);
     }
   }
-  static createNewAddressUSA(): AddAddressDTO {
-    return {
-      streetAddress: 'Union',
-      city: 'Washington',
-      state: 'WH',
-      zipCode: '15756',
-    };
-  }
 
   static createInvalidAddress(): AddAddressDTO {
     return {
@@ -36,38 +28,33 @@ export class AddAddressFactory {
       city: 'Kyiv',
       state: 'Kyiv',
       zipCode: '03164',
-      expectedErrorField: 'streetAddress',
-      expectedErrorText: 'Street Address is required',
     };
   }
+
   static createInvalidCity(): AddAddressDTO {
     return {
       streetAddress: 'Bylachovskogo',
       city: '',
       state: 'Kyiv',
       zipCode: '03164',
-      expectedErrorField: 'city',
-      expectedErrorText: 'City is required',
     };
   }
+
   static createInvalidState(): AddAddressDTO {
     return {
       streetAddress: 'Bylachovskogo',
       city: 'Kyiv',
       state: '',
       zipCode: '03164',
-      expectedErrorField: 'state',
-      expectedErrorText: 'State is required',
     };
   }
+
   static createInvalidzipCode(): AddAddressDTO {
     return {
       streetAddress: 'Bylachovskogo',
       city: 'Kyiv',
       state: 'Kyiv',
       zipCode: '',
-      expectedErrorField: 'zipCode',
-      expectedErrorText: 'Zip Code is required',
     };
   }
 }

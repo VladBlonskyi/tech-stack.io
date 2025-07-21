@@ -1,20 +1,20 @@
-import { GenderAPIEnum } from '../Enums/enumAPI';
-import { UserAPIDTO } from '../DTO/apiDTO';
+import { GenderEnum } from '../Enums/enumGender';
+import { UserDTO } from '../DTO/userDTO';
 
 export class UserApiFactory {
-  static createNewApiUser(type: string): UserAPIDTO {
+  static createNewApiUser(type: string): UserDTO {
     switch (type) {
       case 'Male_User':
         return {
-          gender: GenderAPIEnum.Male,
-          name: 'Vladick',
-          yearOfBirth: 1995,
+          gender: GenderEnum.Male,
+          name: process.env.MALE_ADULT_NAME!,
+          yearOfBirth: Number(process.env.MALE_ADULT_YEAR),
         };
       case 'Female_User':
         return {
-          gender: GenderAPIEnum.Female,
-          name: 'Susana',
-          yearOfBirth: 2000,
+          gender: GenderEnum.Female,
+          name: process.env.FEMALE_ADULT_NAME!,
+          yearOfBirth: Number(process.env.FEMALE_ADULT_YEAR),
         };
       default:
         throw new Error(`Unknown person: ${type}`);
