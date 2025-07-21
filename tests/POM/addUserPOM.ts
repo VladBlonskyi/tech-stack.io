@@ -1,6 +1,7 @@
 import { Locator, Page, expect } from '@playwright/test';
 
 export class AddUserPOM {
+  readonly page: Page;
   readonly genderSelectLocator: Locator;
   readonly userNameFieldLocator: Locator;
   readonly yearOfBirthFieldLocator: Locator;
@@ -14,7 +15,7 @@ export class AddUserPOM {
   readonly homePageLocator: Locator;
   readonly acceptDelete: Locator;
 
-  constructor(public page: Page) {
+  constructor(page: Page) {
     this.page = page;
     this.genderSelectLocator = page.getByTestId('select-Gender');
     this.userNameFieldLocator = page.getByTestId('input-UserName');
@@ -61,6 +62,11 @@ export class AddUserPOM {
   }
   async verifyAddUserPageIsOpen() {
     await expect(this.addUserPageLocator).toBeVisible();
+  }
+  async verifyUrlIsAddUserPage() {
+    await expect(this.page).toHaveURL(
+      'https://traineeautomation.azurewebsites.net/Forms/AddUser'
+    );
   }
   async verifyUserCreated(username: string) {
     await expect(

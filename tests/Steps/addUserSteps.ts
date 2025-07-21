@@ -1,11 +1,11 @@
 import { Page, expect } from '@playwright/test';
 import { AddUserPOM } from '../POM/addUserPOM';
-import { UserGenderDTO, UserInvalidDTO } from '../DTO/addUserDTO';
+import { UserDTO } from '../DTO/userDTO';
 
 export class AddUserSteps {
   addUserPage: AddUserPOM;
 
-  constructor(public page: Page) {
+  constructor(page: Page) {
     this.addUserPage = new AddUserPOM(page);
   }
 
@@ -13,15 +13,15 @@ export class AddUserSteps {
     await this.addUserPage.open();
     await this.addUserPage.addUserPageLocator.waitFor({ state: 'visible' });
   }
-  async fillAllFields(user: UserGenderDTO | UserInvalidDTO) {
+  async fillAllFields(user: UserDTO) {
     if (user.gender) {
-      await this.addUserPage.selectGenderDropdown(user.gender);
+      await this.addUserPage.selectGenderDropdown(user.gender.toString());
     }
     if (user.name) {
       await this.addUserPage.fillUserNameField(user.name);
     }
-    if (user.year) {
-      await this.addUserPage.fillYearOfBirthField(user.year);
+    if (user.yearOfBirth) {
+      await this.addUserPage.fillYearOfBirthField(user.yearOfBirth);
     }
     await this.addUserPage.clickCreateButton();
   }
@@ -35,9 +35,7 @@ export class AddUserSteps {
   }
   async verifyAddUserPageIsOpen() {
     await this.addUserPage.verifyAddUserPageIsOpen();
-    await expect(this.page).toHaveURL(
-      'https://traineeautomation.azurewebsites.net/Forms/AddUser'
-    );
+    await this.addUserPage.verifyUrlIsAddUserPage();
   }
   async verifyUserCreated(username: string) {
     await this.addUserPage.verifyUserCreated(username);

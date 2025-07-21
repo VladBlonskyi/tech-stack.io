@@ -28,6 +28,7 @@ export class AddAddressPOM {
     this.acceptDelete = page.getByTestId('button-Yes');
     this.addAddressPageLocator = page.locator("//h1[text()='Add Address']");
   }
+
   async addAddressPageOpen() {
     await this.page.goto('/Forms/AddAddress');
   }

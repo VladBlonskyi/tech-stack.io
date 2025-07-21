@@ -1,13 +1,14 @@
 import { test, expect } from '@playwright/test';
-import { UserResponseDTO } from '../../DTO/apiDTO';
-import { TestUsersAPI } from '../../TestData/apiData';
+import { UserDTO } from '../../DTO/userDTO';
+import { UserFactory } from '../../Factory/userFactory';
 
 test.describe('Full user flow scenario', () => {
-  let createdUser: UserResponseDTO;
+  let createdUser: UserDTO;
 
   test.beforeEach(async ({ request }) => {
+    const userMale = UserFactory.createNewUser('Male_Gender');
     const response = await request.post('/api/User', {
-      data: TestUsersAPI.MALE_ADULT,
+      data: userMale,
     });
 
     createdUser = await response.json();
@@ -19,7 +20,7 @@ test.describe('Full user flow scenario', () => {
 
   test('Get info about user', async ({ request }) => {
     const response = await request.get(`/api/User/${createdUser.id}`);
-    const user: UserResponseDTO = await response.json();
+    const user: UserDTO = await response.json();
 
     expect(response.status()).toBe(200);
     expect(user.id).toBe(createdUser.id);
@@ -30,16 +31,17 @@ test.describe('Full user flow scenario', () => {
   });
 
   test('Update user', async ({ request }) => {
+    const userFemale = UserFactory.createNewUser('Female_Gender');
     const response = await request.put(`/api/User/${createdUser.id}`, {
-      data: TestUsersAPI.FEMALE_ADULT,
+      data: userFemale,
     });
     expect(response.ok()).toBeTruthy();
     expect(response.status()).toBe(200);
-    const user: UserResponseDTO = await response.json();
+    const user: UserDTO = await response.json();
 
-    expect(user.name).toBe(TestUsersAPI.FEMALE_ADULT.Name);
-    expect(user.yearOfBirth).toBe(TestUsersAPI.FEMALE_ADULT.YearOfBirth);
-    expect(user.gender).toBe(TestUsersAPI.FEMALE_ADULT.gender);
+    expect(user.name).toBe(userFemale.name);
+    expect(user.yearOfBirth).toBe(userFemale.yearOfBirth);
+    expect(user.gender).toBe(userFemale.gender);
   });
 
   test('GET info about all users', async ({ request }) => {
@@ -48,7 +50,7 @@ test.describe('Full user flow scenario', () => {
     expect(response.ok()).toBeTruthy();
     expect(response.status()).toBe(200);
 
-    const users: UserResponseDTO[] = await response.json();
+    const users: UserDTO[] = await response.json();
 
     expect(Array.isArray(users)).toBe(true);
 
