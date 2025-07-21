@@ -63,6 +63,11 @@ export class AddUserPOM {
   async verifyAddUserPageIsOpen() {
     await expect(this.addUserPageLocator).toBeVisible();
   }
+  async verifyUrlIsAddUserPage() {
+    await expect(this.page).toHaveURL(
+      'https://traineeautomation.azurewebsites.net/Forms/AddUser'
+    );
+  }
   async verifyUserCreated(username: string) {
     await expect(
       this.userCreateLocator.filter({ hasText: username })

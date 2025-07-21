@@ -35,9 +35,7 @@ export class AddUserSteps {
   }
   async verifyAddUserPageIsOpen() {
     await this.addUserPage.verifyAddUserPageIsOpen();
-    await expect(this.page).toHaveURL(
-      'https://traineeautomation.azurewebsites.net/Forms/AddUser'
-    );
+    await this.addUserPage.verifyUrlIsAddUserPage();
   }
   async verifyUserCreated(username: string) {
     await this.addUserPage.verifyUserCreated(username);
