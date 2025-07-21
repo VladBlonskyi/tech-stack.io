@@ -1,5 +1,6 @@
 import { GenderEnum } from '../Enums/enumGender';
 import { UserDTO } from '../DTO/userDTO';
+import 'dotenv/config';
 
 export class UserApiFactory {
   static createNewApiUser(type: string): UserDTO {
