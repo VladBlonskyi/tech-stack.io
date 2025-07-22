@@ -10,11 +10,11 @@ export class UserApiSteps {
     this.request = request;
   }
 
-  async createUser() {
+  async createUser(): Promise<UserDTO> {
     const userMale = UserFactory.createNewUser('Male_Gender');
     const response = await this.request.post('/api/User', { data: userMale });
     this.createdUser = await response.json();
-    return response;
+    return this.createdUser;
   }
 
   async deleteUser() {

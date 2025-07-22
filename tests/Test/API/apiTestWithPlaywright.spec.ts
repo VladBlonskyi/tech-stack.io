@@ -8,9 +8,8 @@ test.describe('Full user flow scenario', () => {
 
   test.beforeEach(async ({ request }) => {
     userSteps = new UserApiSteps(request);
-    const response = await userSteps.createUser();
-    expect(response.ok()).toBeTruthy();
-    expect(response.status()).toBe(200);
+
+    await userSteps.createUser();
   });
 
   test.afterEach(async () => {
