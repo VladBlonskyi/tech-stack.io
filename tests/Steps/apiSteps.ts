@@ -1,4 +1,4 @@
-import { APIRequestContext } from '@playwright/test';
+import { APIRequestContext, APIResponse } from '@playwright/test';
 import { UserDTO } from '../DTO/userDTO';
 import { UserFactory } from '../Factory/userFactory';
 
@@ -17,22 +17,21 @@ export class UserApiSteps {
     return this.createdUser;
   }
 
-  async deleteUser() {
-    return await this.request.delete(`/api/User/${this.createdUser.id}`);
+  async deleteUser(userId: string) {
+    return await this.request.delete(`/api/User/${userId}`);
   }
 
-  async getUserInfo() {
-    return await this.request.get(`/api/User/${this.createdUser.id}`);
+  async getUserInfo(userId: string): Promise<APIResponse> {
+    return await this.request.get(`/api/User/${userId}`);
   }
 
-  async updateUser() {
-    const userFemale = UserFactory.createNewUser('Female_Gender');
+  async updateUser(userType: UserDTO): Promise<APIResponse> {
     return await this.request.put(`/api/User/${this.createdUser.id}`, {
-      data: userFemale,
+      data: userType,
     });
   }
 
-  async getAllUsers() {
+  async getAllUsers(): Promise<APIResponse> {
     return await this.request.get('/api/User');
   }
 }
