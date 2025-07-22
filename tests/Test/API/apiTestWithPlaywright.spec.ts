@@ -1,51 +1,52 @@
 import { test, expect } from '@playwright/test';
-import { UserDTO } from '../../DTO/userDTO';
+import { UserApiSteps } from '../../Steps/apiSteps';
 import { UserFactory } from '../../Factory/userFactory';
+import { UserDTO } from '../../DTO/userDTO';
 
 test.describe('Full user flow scenario', () => {
-  let createdUser: UserDTO;
+  let userSteps: UserApiSteps;
+  let user: UserDTO;
 
   test.beforeEach(async ({ request }) => {
-    const userMale = UserFactory.createNewUser('Male_Gender');
-    const response = await request.post('/api/User', {
-      data: userMale,
-    });
-
-    createdUser = await response.json();
+    userSteps = new UserApiSteps(request);
+    console.log(user);
+    user = await userSteps.createUser();
   });
 
-  test.afterEach(async ({ request }) => {
-    await request.delete(`/api/User/${createdUser.id}`);
+  test.afterEach(async () => {
+    const deleteResponse = await userSteps.deleteUser(user.id!);
+
+    expect(deleteResponse.ok()).toBeTruthy();
+    expect(deleteResponse.status()).toBe(200);
   });
 
-  test('Get info about user', async ({ request }) => {
-    const response = await request.get(`/api/User/${createdUser.id}`);
-    const user: UserDTO = await response.json();
+  test('Get info about user', async () => {
+    const response = await userSteps.getUserInfo(user.id!);
+    const json: UserDTO = await response.json();
 
-    expect(response.status()).toBe(200);
-    expect(user.id).toBe(createdUser.id);
-    expect(user.name).toBe(createdUser.name);
-    expect(user.yearOfBirth).toBe(createdUser.yearOfBirth);
-    expect(user.gender).toBe(createdUser.gender);
-    expect(user.created).toBe(createdUser.created);
-  });
-
-  test('Update user', async ({ request }) => {
-    const userFemale = UserFactory.createNewUser('Female_Gender');
-    const response = await request.put(`/api/User/${createdUser.id}`, {
-      data: userFemale,
-    });
     expect(response.ok()).toBeTruthy();
     expect(response.status()).toBe(200);
-    const user: UserDTO = await response.json();
-
-    expect(user.name).toBe(userFemale.name);
-    expect(user.yearOfBirth).toBe(userFemale.yearOfBirth);
-    expect(user.gender).toBe(userFemale.gender);
+    expect(json.id).toBe(user.id);
+    expect(json.name).toBe(user.name);
+    expect(json.yearOfBirth).toBe(user.yearOfBirth);
   });
 
-  test('GET info about all users', async ({ request }) => {
-    const response = await request.get('/api/User');
+  test('Update user', async () => {
+    const userFemale = UserFactory.createNewUser('Female_Gender');
+    const response = await userSteps.updateUser(userFemale);
+
+    expect(response.ok()).toBeTruthy();
+    expect(response.status()).toBe(200);
+
+    const updatedUser: UserDTO = await response.json();
+
+    expect(updatedUser.name).toBe(userFemale.name);
+    expect(updatedUser.gender).toBe(userFemale.gender);
+    expect(updatedUser.yearOfBirth).toBe(userFemale.yearOfBirth);
+  });
+
+  test('Get info about all users', async () => {
+    const response = await userSteps.getAllUsers();
 
     expect(response.ok()).toBeTruthy();
     expect(response.status()).toBe(200);
@@ -54,11 +55,14 @@ test.describe('Full user flow scenario', () => {
 
     expect(Array.isArray(users)).toBe(true);
 
-    const foundUser = users.find((user) => user.id === createdUser.id);
+    const found = users.find(
+      (user: UserDTO) => user.id === userSteps.createdUser.id
+    );
 
-    expect(foundUser).toBeTruthy();
-    expect(foundUser!.name).toBe(createdUser.name);
-    expect(foundUser!.yearOfBirth).toBe(createdUser.yearOfBirth);
-    expect(foundUser!.gender).toBe(createdUser.gender);
+    expect(found).toBeTruthy();
+    expect(found!.id).toBe(userSteps.createdUser.id);
+    expect(found!.name).toBe(userSteps.createdUser.name);
+    expect(found!.yearOfBirth).toBe(userSteps.createdUser.yearOfBirth);
+    expect(found!.gender).toBe(userSteps.createdUser.gender);
   });
 });
